@@ -1,0 +1,13 @@
+<resources>
+    <!-- Adicione as cores necessárias -->
+    <color name="colorPrimary">#000000</color> <!-- cor primária em preto -->
+    <color name="colorPrimaryDark">#000000</color> <!-- cor primária escura -->
+    <color name="colorAccent">#000000</color> <!-- cor de destaque -->
+
+    <!-- Cores adicionais que estavam faltando -->
+    <color name="purple_200">#000000</color> <!-- Muda purple_200 para preto -->
+    <color name="purple_700">#000000</color> <!-- Muda purple_700 para preto -->
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="teal_200">#000000</color>
+</resources>

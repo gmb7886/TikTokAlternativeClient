@@ -1,0 +1,10 @@
+<resources>
+    <!-- Tema principal do aplicativo -->
+    <style name="Theme.TikTok" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- Remover a base do tema sem Action Bar, já está no styles.xml -->
+</resources>
