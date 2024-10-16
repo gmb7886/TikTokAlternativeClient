@@ -9,10 +9,25 @@ import android.webkit.WebViewClient;
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.ActivityManager;
 import android.content.Context;
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private WebView webView;
+
+    // Lista de domínios aprovados
+    private static final List<String> APPROVED_DOMAINS = Arrays.asList(
+            "tiktok.com",
+            "link.e.tiktok.com",
+            "us.tiktok.com",
+            "t.tiktok.com",
+            "www.tt.fun",
+            "www.tt.inc",
+            "www.tt.site",
+            "www.tiktokv.com"
+            // Adicione outros domínios aprovados aqui, se necessário
+    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,15 +66,8 @@ public class MainActivity extends AppCompatActivity {
     private class CustomWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            // Verifica se a URL é um dos domínios do TikTok
-            if (url.contains("tiktok.com") ||
-                    url.contains("link.e.tiktok.com") ||
-                    url.contains("us.tiktok.com") ||
-                    url.contains("t.tiktok.com") ||
-                    url.contains("www.tt.fun") ||
-                    url.contains("www.tt.inc") ||
-                    url.contains("www.tt.site") ||
-                    url.contains("www.tiktokv.com")) {
+            // Verifica se a URL está na lista de domínios aprovados
+            if (isDomainApproved(url)) {
                 // Carrega a URL diretamente no WebView
                 view.loadUrl(url);
             } else {
@@ -70,11 +78,24 @@ public class MainActivity extends AppCompatActivity {
             return true; // Indica que a URL foi tratada
         }
 
+        private boolean isDomainApproved(String url) {
+            Uri uri = Uri.parse(url);
+            String host = uri.getHost(); // Obtém o host da URL
+
+            // Verifica se o domínio está na lista de aprovados
+            for (String approvedDomain : APPROVED_DOMAINS) {
+                if (host != null && host.contains(approvedDomain)) {
+                    return true; // Domínio aprovado
+                }
+            }
+            return false; // Domínio não aprovado
+        }
+
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
             // Injetar JavaScript para reduzir o tamanho da página
-            view.evaluateJavascript("document.body.style.zoom = '0.72';", null); // Ajusta a escala da página para 62%
+            view.evaluateJavascript("document.body.style.zoom = '0.72';", null); // Ajusta a escala da página para 72%
         }
     }
 
@@ -86,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed(); // Se não houver páginas anteriores, sai da atividade
         }
     }
+
     @Override
     protected void onStop() {
         super.onStop();
